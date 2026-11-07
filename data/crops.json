@@ -1,0 +1,254 @@
+[
+ {
+  "id": "turnip",
+  "name": "Turnip",
+  "seasons": [
+   0
+  ],
+  "grow_days": 4,
+  "regrow_days": 0,
+  "seed_price": 20,
+  "sell_price": 40,
+  "color": "#e8d0e0"
+ },
+ {
+  "id": "potato",
+  "name": "Potato",
+  "seasons": [
+   0
+  ],
+  "grow_days": 6,
+  "regrow_days": 0,
+  "seed_price": 50,
+  "sell_price": 90,
+  "color": "#c49a5e"
+ },
+ {
+  "id": "strawberry",
+  "name": "Strawberry",
+  "seasons": [
+   0
+  ],
+  "grow_days": 8,
+  "regrow_days": 4,
+  "seed_price": 100,
+  "sell_price": 70,
+  "color": "#d63c2e"
+ },
+ {
+  "id": "cauliflower",
+  "name": "Cauliflower",
+  "seasons": [
+   0
+  ],
+  "grow_days": 12,
+  "regrow_days": 0,
+  "seed_price": 80,
+  "sell_price": 190,
+  "color": "#f0ece0"
+ },
+ {
+  "id": "peas",
+  "name": "Peas",
+  "seasons": [
+   0
+  ],
+  "grow_days": 7,
+  "regrow_days": 3,
+  "seed_price": 40,
+  "sell_price": 30,
+  "color": "#7fb24a"
+ },
+ {
+  "id": "tomato",
+  "name": "Tomato",
+  "seasons": [
+   1
+  ],
+  "grow_days": 11,
+  "regrow_days": 4,
+  "seed_price": 50,
+  "sell_price": 60,
+  "color": "#d63c2e"
+ },
+ {
+  "id": "corn",
+  "name": "Corn",
+  "seasons": [
+   1
+  ],
+  "grow_days": 14,
+  "regrow_days": 4,
+  "seed_price": 150,
+  "sell_price": 55,
+  "color": "#ecc84a"
+ },
+ {
+  "id": "watermelon",
+  "name": "Watermelon",
+  "seasons": [
+   1
+  ],
+  "grow_days": 12,
+  "regrow_days": 0,
+  "seed_price": 80,
+  "sell_price": 250,
+  "color": "#3c7a34"
+ },
+ {
+  "id": "blueberry",
+  "name": "Blueberry",
+  "seasons": [
+   1
+  ],
+  "grow_days": 13,
+  "regrow_days": 4,
+  "seed_price": 80,
+  "sell_price": 40,
+  "color": "#3e5e9a"
+ },
+ {
+  "id": "bell_pepper",
+  "name": "Bell Pepper",
+  "seasons": [
+   1
+  ],
+  "grow_days": 8,
+  "regrow_days": 3,
+  "seed_price": 40,
+  "sell_price": 45,
+  "color": "#e47a22"
+ },
+ {
+  "id": "sunflower",
+  "name": "Sunflower",
+  "seasons": [
+   1
+  ],
+  "grow_days": 8,
+  "regrow_days": 0,
+  "seed_price": 100,
+  "sell_price": 80,
+  "color": "#f0b030"
+ },
+ {
+  "id": "wheat",
+  "name": "Wheat",
+  "seasons": [
+   1
+  ],
+  "grow_days": 4,
+  "regrow_days": 0,
+  "seed_price": 10,
+  "sell_price": 25,
+  "color": "#d8b04a"
+ },
+ {
+  "id": "pumpkin",
+  "name": "Pumpkin",
+  "seasons": [
+   2
+  ],
+  "grow_days": 13,
+  "regrow_days": 0,
+  "seed_price": 100,
+  "sell_price": 320,
+  "color": "#e47a22"
+ },
+ {
+  "id": "carrot",
+  "name": "Carrot",
+  "seasons": [
+   2
+  ],
+  "grow_days": 5,
+  "regrow_days": 0,
+  "seed_price": 30,
+  "sell_price": 60,
+  "color": "#ef8c2f"
+ },
+ {
+  "id": "cranberry",
+  "name": "Cranberry",
+  "seasons": [
+   2
+  ],
+  "grow_days": 7,
+  "regrow_days": 5,
+  "seed_price": 240,
+  "sell_price": 75,
+  "color": "#a8243a"
+ },
+ {
+  "id": "eggplant",
+  "name": "Eggplant",
+  "seasons": [
+   2
+  ],
+  "grow_days": 5,
+  "regrow_days": 5,
+  "seed_price": 20,
+  "sell_price": 60,
+  "color": "#5a2e6e"
+ },
+ {
+  "id": "grapes",
+  "name": "Grapes",
+  "seasons": [
+   2
+  ],
+  "grow_days": 10,
+  "regrow_days": 3,
+  "seed_price": 60,
+  "sell_price": 80,
+  "color": "#7a3e8a"
+ },
+ {
+  "id": "kale",
+  "name": "Kale",
+  "seasons": [
+   3
+  ],
+  "grow_days": 6,
+  "regrow_days": 0,
+  "seed_price": 70,
+  "sell_price": 110,
+  "color": "#356a34"
+ },
+ {
+  "id": "garlic",
+  "name": "Garlic",
+  "seasons": [
+   3
+  ],
+  "grow_days": 4,
+  "regrow_days": 0,
+  "seed_price": 40,
+  "sell_price": 60,
+  "color": "#f0e8d8"
+ },
+ {
+  "id": "winter_squash",
+  "name": "Winter Squash",
+  "seasons": [
+   3
+  ],
+  "grow_days": 10,
+  "regrow_days": 0,
+  "seed_price": 90,
+  "sell_price": 220,
+  "color": "#d49a3e"
+ },
+ {
+  "id": "snow_peas",
+  "name": "Snow Peas",
+  "seasons": [
+   3
+  ],
+  "grow_days": 7,
+  "regrow_days": 3,
+  "seed_price": 60,
+  "sell_price": 40,
+  "color": "#94bd4c"
+ }
+]

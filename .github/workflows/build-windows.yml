@@ -1,0 +1,79 @@
+# Builds JoeFarmer.exe every time something lands on main (a merged PR),
+# and on demand from the Actions tab ("Run workflow").
+name: Build Windows .exe
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # needed to update the "latest" release
+
+concurrency:
+  group: build-windows
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: "4.3"   # change this (and nothing else) to move to a newer Godot
+  GODOT_STAGE: "stable"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Godot and export templates
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-${{ env.GODOT_VERSION }}-${{ env.GODOT_STAGE }}-win
+
+      - name: Download Godot and the Windows export template
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          TAG="${GODOT_VERSION}-${GODOT_STAGE}"
+          BASE="https://github.com/godotengine/godot/releases/download/${TAG}"
+          mkdir -p ~/godot && cd ~/godot
+          curl -sSLo godot.zip "${BASE}/Godot_v${TAG}_linux.x86_64.zip"
+          unzip -q godot.zip && rm godot.zip
+          mv "Godot_v${TAG}_linux.x86_64" godot && chmod +x godot
+          curl -sSLo templates.tpz "${BASE}/Godot_v${TAG}_export_templates.tpz"
+          # Keep only what a Windows export needs; the full set is ~1 GB.
+          unzip -q templates.tpz "templates/version.txt" "templates/windows_*_x86_64*.exe" && rm templates.tpz
+          DEST=~/.local/share/godot/export_templates/${GODOT_VERSION}.${GODOT_STAGE}
+          mkdir -p "$DEST" && mv templates/* "$DEST"/
+
+      - name: Import project
+        run: ~/godot/godot --headless --import --path . || true
+
+      - name: Smoke test
+        run: ~/godot/godot --headless --path . -- --smoke-test
+
+      - name: Export Windows build
+        run: |
+          mkdir -p build/windows
+          ~/godot/godot --headless --path . --export-release "Windows Desktop" build/windows/JoeFarmer.exe
+          test -s build/windows/JoeFarmer.exe
+          cd build/windows && zip -q ../JoeFarmer-windows.zip *
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JoeFarmer-windows-${{ github.run_number }}
+          path: build/windows/
+
+      - name: Update the "latest" release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest build/JoeFarmer-windows.zip \
+            --title "Latest build (#${{ github.run_number }})" \
+            --notes "Built automatically from ${GITHUB_SHA::7} on $(date -u +'%Y-%m-%d %H:%M UTC'). Unzip and run JoeFarmer.exe." \
+            --prerelease --target "$GITHUB_SHA"

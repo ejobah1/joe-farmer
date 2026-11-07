@@ -1,0 +1,31 @@
+; Engine configuration file.
+config_version=5
+
+[application]
+
+config/name="Joe Farmer"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.3")
+
+[autoload]
+
+Controls="*res://autoload/controls.gd"
+DB="*res://autoload/db.gd"
+Net="*res://autoload/net.gd"
+Clock="*res://autoload/clock.gd"
+Economy="*res://autoload/economy.gd"
+Inv="*res://autoload/inventory.gd"
+SaveGame="*res://autoload/save_game.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
