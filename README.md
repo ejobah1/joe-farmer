@@ -16,6 +16,7 @@ Open this folder in Godot 4.3 or newer and press F5. All art is placeholder unti
 | F5 / F9 | Save / load |
 
 Walk down the path off the bottom of the farm to reach the town square, and walk off the top of the square to come back.
+At your stand, E drops all your sellable goods in. A full stack of 99 sells over about 2 to 3 nights, and the farm is paid 90% of each day's sales when the new day starts.
 At the butcher, E sells your selected animal wholesale and Space processes it into meat for a fee.
 
 ## How it fits together
@@ -25,7 +26,7 @@ At the butcher, E sells your selected animal wholesale and Space processes it in
 - **Co-op:** the host is authoritative. Every change goes through `request_action()` and runs on the host, then gets broadcast. Start with `-- --host` or `-- --join=<ip>` (2 to 4 players). The networking is built in but **not tested yet**.
 
 ## Testing
-`godot --headless --path . -- --smoke-test` runs 22 checks of the core loop (clear, till, plant, water, grow, harvest, sell, buy seeds, buy plots, animals, breeding, butcher, off-season prices, the midnight rule, seasons and save/load).
+`godot --headless --path . -- --smoke-test` runs 24 checks of the core loop (clear, till, plant, water, grow, harvest, stocking the stand and overnight sales, buy seeds, buy plots, animals, breeding, butcher, off-season prices, the midnight rule, seasons and save/load).
 
 ## Not built yet
 House interior and relocation, barns/coops as buildings, the blacksmith and carpenter shops, tool upgrades, processing machines, real UI, sound, and the art swap.

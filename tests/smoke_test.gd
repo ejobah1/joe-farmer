@@ -43,12 +43,22 @@ func run(main: Node) -> void:
 	farm._perform(me, "harvest", c, "")
 	check(Inv.count(me, "turnip") == 1 and farm.soil[c].crop == "", "harvested turnip")
 
-	# sell at the stall
+	# stock the stand; it sells over the following nights
 	var before := Economy.copper
-	main._do_request(me, "sell_all", "")
-	check(Economy.copper == before + 40 and Inv.count(me, "turnip") == 0, "sold turnip for 40c (%s)" % Economy.format(Economy.copper))
+	main._do_request(me, "stock_stand", "")
+	check(Inv.count(me, "turnip") == 0 and main.market.stand.slots.size() == 1, "turnip moved into the stand")
+	sleep_all()
+	check(Economy.copper == before + 36 and main.market.stand.slots.is_empty(), "stand sold the turnip overnight, paid 90 percent (36c)")
+	Inv.add(me, "tomato", 99)
+	main._do_request(me, "stock_stand", "")
+	var nights := 0
+	while not main.market.stand.slots.is_empty() and nights < 10:
+		sleep_all()
+		nights += 1
+	check(nights >= 2 and nights <= 4, "a full stack of 99 sold out in %d nights" % nights)
+	before = Economy.copper
 	main._do_request(me, "buy_seed", "potato")
-	check(Inv.count(me, "seed_potato") == 5 and Economy.copper == before + 40 - 50, "bought potato seed for 50c")
+	check(Inv.count(me, "seed_potato") == 5 and Economy.copper == before - 50, "bought potato seed for 50c")
 	check(Economy.format(1234567) == "123g 45s 67c", "coin formatting")
 
 	# plots
@@ -88,7 +98,9 @@ func run(main: Node) -> void:
 	if farm.debris.has(c2):
 		farm._perform(me, tools[farm.debris[c2]], c2, "")
 	farm._perform(me, "hoe", c2, "")
-	farm._perform(me, "plant", c2, "potato")
+	var in_season: String = DB.seeds_for_season(Clock.season)[0]
+	Inv.add(me, "seed_" + in_season)
+	farm._perform(me, "plant", c2, in_season)
 	Clock.day = Clock.DAYS_PER_SEASON
 	var season_before := Clock.season
 	sleep_all()

@@ -23,6 +23,9 @@ func _ready() -> void:
 	hud = Hud.new()
 	add_child(hud)
 	farm.message.connect(func(_p, t): hud.show_message(t))
+	market.stand.sold.connect(func(t):
+		for id in Net.player_ids():
+			farm._tell(id, t))
 	Clock.players_woke.connect(_on_players_woke)
 	Net.player_joined.connect(_on_player_joined)
 	Net.player_left.connect(_on_player_left)
@@ -154,7 +157,7 @@ func _on_interacted(p: Player) -> void:
 		var stall := market.stall_near(p.position)
 		match stall:
 			"player_stall":
-				_request("sell_all", "")
+				_request("stock_stand", "")
 			"seeds":
 				_request("buy_seed", p.selected_seed())
 			"livestock":
@@ -202,16 +205,14 @@ func _server_request(action: String, arg: String) -> void:
 
 func _do_request(peer: int, action: String, arg: String) -> void:
 	match action:
-		"sell_all":
-			var total := 0
-			var bag: Dictionary = Inv.bag(peer).duplicate()
-			for item: String in bag:
-				if DB.is_sellable(item):
-					total += DB.sell_price(item, Clock.season) * int(bag[item])
-					Inv.remove(peer, item, int(bag[item]))
-			if total > 0:
-				Economy.add(total)
-			farm._tell(peer, "Sold your goods for %s." % Economy.format(total) if total > 0 else "Nothing to sell.")
+		"stock_stand":
+			var n := market.stand.stock_all(peer)
+			if n > 0:
+				farm._tell(peer, "Put %d items in your stand. They'll sell over the next few days." % n)
+			elif market.stand.slots.size() >= market.stand.capacity:
+				farm._tell(peer, "Your stand is full.")
+			else:
+				farm._tell(peer, "Nothing to sell.")
 		"buy_seed":
 			var info := DB.crop(arg)
 			if info.is_empty():
