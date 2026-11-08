@@ -8,7 +8,7 @@ const SIZE := Vector2i(30, 18)
 
 ## id -> [label, cell, color]
 const STALLS := {
-	"player_stall": ["Your Stall (sell goods)", Vector2i(5, 6), Color("#d8b04a")],
+	"player_stall": ["Your Stand (drop goods)", Vector2i(5, 6), Color("#d8b04a")],
 	"seeds": ["Seed Vendor", Vector2i(11, 6), Color("#5ea63c")],
 	"blacksmith": ["Blacksmith", Vector2i(17, 6), Color("#6e6670")],
 	"carpenter": ["Carpenter", Vector2i(23, 6), Color("#a8693a")],
@@ -17,9 +17,13 @@ const STALLS := {
 }
 
 var objects: Node2D
+var stand: Stand
 
 
 func _ready() -> void:
+	stand = Stand.new()
+	stand.name = "Stand"
+	add_child(stand)
 	var ground := TileMapLayer.new()
 	ground.tile_set = Tiles.make_tileset()
 	add_child(ground)
